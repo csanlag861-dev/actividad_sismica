@@ -86,24 +86,27 @@ PostgreSQL no deben exponerse mediante ngrok.
 
 ---
 
-### Fase 2. Definir el modelo de datos y la inicialización de PostgreSQL
+### Fase 2. Definir el modelo e inicializar PostgreSQL desde FastAPI
 
-**Objetivo:** decidir cómo conservar eventos actuales, revisiones y rechazos antes de implementar la persistencia del consumidor.
+**Objetivo:** definir el modelo de datos e implementar su esquema con SQLAlchemy y migraciones Alembic, aplicadas al arrancar el servicio FastAPI después de que PostgreSQL esté listo.
 
 **Agente:** Backend.
 
-**Skill:** `consumidor-calidad-postgresql`.
+**Skills:** `api-fastapi-observatorio` y `consumidor-calidad-postgresql`.
 
 **Resultado esperado:**
 
-- Esquema e inicialización reproducible de PostgreSQL.
-- Identificación única del evento y de cada versión recibida.
-- Tablas o mecanismos equivalentes para originales, estado actual, procedencia y cuarentena, según el alcance acordado.
-- Un diccionario de campos con tipos, unidades y tratamiento de nulos.
+- Modelo conceptual, lógico y físico, con diccionario de campos, tipos, unidades y tratamiento de nulos.
+- Modelos ORM de SQLAlchemy y restricciones que representen eventos actuales, versiones recibidas, procedencia/estado de ingesta y cuarentena, de acuerdo con el alcance definido.
+- Configuración versionada de Alembic y una migración inicial revisada que cree el esquema en PostgreSQL. Las migraciones son la fuente de verdad del esquema; no se sustituirán por `Base.metadata.create_all()`.
+- El servicio `api` ejecuta `alembic upgrade head` antes de iniciar Uvicorn. Si la migración falla, el contenedor debe informar el error y no iniciar la API como si la base estuviera lista. No se añade un servicio de migraciones separado.
+- Evidencia de inicialización en una base vacía, aplicación de migraciones pendientes y persistencia del esquema al reiniciar; SQL de creación de tablas e índices generado desde las migraciones, incluido en el repositorio y enlazado desde la memoria o notebook.
 
 **Prompt sugerido:**
 
-> Diseña e implementa la persistencia PostgreSQL mínima que exige el enunciado para eventos, versiones y rechazos. Revisa antes el modelo y los requisitos de idempotencia. Explica las claves, restricciones e índices elegidos; conserva los originales y no conviertas valores ausentes en cero. Incluye una forma reproducible de inicializar la base y pruebas pequeñas de inserción y consulta. No cambies el contrato de la API ni generes artefactos SDD.
+> Revisa ENUNCIADO.md, la guía de entregables, el contrato de la API y el Compose existente. Define el modelo conceptual, lógico y físico y el diccionario de datos para conservar originales, estado actual por evento, versiones recibidas, procedencia y rechazos con su motivo y referencia al original. Implementa los modelos con SQLAlchemy y configura Alembic para generar y versionar las migraciones; revisa la migración inicial y úsala para crear el esquema, no `Base.metadata.create_all()`. Configura el servicio FastAPI para ejecutar `alembic upgrade head` antes de Uvicorn, después de que PostgreSQL esté saludable, y para detener el arranque con un error visible si la migración falla. No añadas otro servicio Compose. Conserva los nulos, unidades, claves y restricciones que requiere el modelo y la idempotencia. Comprueba la migración en una base vacía, que no haya cambios pendientes después de aplicarla y que el esquema persista tras reiniciar. Incluye en el repositorio el SQL de creación de tablas e índices generado desde las migraciones y enlázalo desde la memoria o notebook. No implementes aún las rutas finales ni cambies el contrato de la API.
+
+**Punto de control:** una base vacía debe poder inicializarse de forma reproducible mediante el arranque de `api`; una migración fallida no debe quedar oculta. Revisa el SQL generado y explica grano, claves, relaciones e índices según las consultas previstas. La estructura de tablas que muestra el enunciado es orientación: justifica el modelo elegido sin perder los datos originales, las versiones ni los rechazos.
 
 
 ---
@@ -145,11 +148,12 @@ PostgreSQL no deben exponerse mediante ngrok.
 - Escritura transaccional e idempotente.
 - Confirmación del offset después de persistir.
 - Rechazos conservados con su motivo y referencia al original.
+- Uso del esquema ya creado por las migraciones Alembic y de los modelos/mapeos SQLAlchemy del backend, sin crear tablas por una vía paralela.
 - Pruebas de evento nuevo, duplicado, revisión nueva y revisión antigua.
 
 **Prompt sugerido:**
 
-> Implementa el consumidor Kafka hacia PostgreSQL. Revisa los requisitos de versiones, transacciones, offsets e idempotencia. Debe conservar cada versión recibida y actualizar el estado actual solo si la versión es posterior; un reenvío no debe duplicar efectos. Conserva rechazos y motivos. Añade pruebas para evento nuevo, duplicado, actualización posterior y mensaje antiguo recibido después. Ejecuta las pruebas pertinentes y reporta esperado, observado y evidencia.
+> Implementa el consumidor Kafka hacia PostgreSQL usando el esquema y los modelos SQLAlchemy definidos en la Fase 2; no crees ni modifiques tablas al margen de Alembic. Revisa los requisitos de versiones, transacciones, offsets e idempotencia. Debe conservar cada versión recibida y actualizar el estado actual solo si la versión es posterior; un reenvío no debe duplicar efectos. Conserva rechazos y motivos. Añade pruebas para evento nuevo, duplicado, actualización posterior y mensaje antiguo recibido después. Ejecuta las pruebas pertinentes y reporta esperado, observado y evidencia.
 
 
 ---
@@ -191,10 +195,11 @@ PostgreSQL no deben exponerse mediante ngrok.
 - Filtros coherentes, fechas y unidades correctas, nulos representados como `null`.
 - Errores de base de datos explícitos, sin respuestas que parezcan válidas.
 - CORS configurado para desarrollo y el origen de publicación cuando se conozca.
+- Consultas implementadas sobre SQLAlchemy y esquema PostgreSQL inicializado mediante las migraciones Alembic de la Fase 2.
 
 **Prompt sugerido:**
 
-> Implementa la API FastAPI respetando exactamente `docs/source-of-truth/CONTRATO-API.md`. Consulta PostgreSQL, aplica los filtros y unidades del contrato y devuelve errores explícitos si la base falla. Incluye pruebas de respuesta vacía, filtros, nulos y error de base de datos. No inventes datos para que las rutas parezcan funcionar. Indica qué pruebas ejecutaste y sus resultados.
+> Implementa las rutas de la API FastAPI respetando exactamente `docs/source-of-truth/CONTRATO-API.md`. Reutiliza SQLAlchemy y el esquema que Alembic inicializa antes de arrancar Uvicorn; no cambies el contrato ni crees tablas por separado. Consulta PostgreSQL, aplica los filtros y unidades del contrato y devuelve errores explícitos si la base falla. Incluye pruebas de respuesta vacía, filtros, nulos y error de base de datos. No inventes datos para que las rutas parezcan funcionar. Indica qué pruebas ejecutaste y sus resultados.
 
 
 ---
@@ -315,6 +320,8 @@ PostgreSQL no deben exponerse mediante ngrok.
 
 - [ ] El flujo completo funciona desde la ingesta hasta el panel.
 - [ ] Compose levanta los cinco servicios y los datos sobreviven a un reinicio.
+- [ ] FastAPI aplica las migraciones Alembic pendientes al iniciar; los fallos de migración son visibles y la API no arranca como si el esquema estuviera preparado.
+- [ ] El SQL de creación de tablas e índices generado desde las migraciones está en el repositorio y enlazado desde la memoria o notebook.
 - [ ] Los reenvíos y revisiones se procesan sin duplicados ni regresiones.
 - [ ] La API respeta su contrato y reporta errores de forma explícita.
 - [ ] El panel aplica filtros y muestra claramente estados, nulos y errores.

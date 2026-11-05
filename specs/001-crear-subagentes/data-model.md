@@ -8,7 +8,7 @@ A workspace-discoverable specialist definition.
 
 | Field | Meaning | Validation |
 |---|---|---|
-| `name` | Human-readable role name, optionally declared in frontmatter | Must identify one of the six specified roles |
+| `name` | Human-readable role name, optionally declared in frontmatter | Must identify one of the eleven specified roles |
 | `description` | Discovery text used in the picker and when matching tasks for delegation | Required, concise, and specific to the role |
 | `tools` | Tool aliases available to the profile | Must be limited to capabilities needed by that role |
 | `purpose` | Outcome the profile is responsible for | Must not duplicate another profile's primary outcome |
@@ -16,7 +16,7 @@ A workspace-discoverable specialist definition.
 | `boundaries` | Work the profile must not claim or perform as its primary responsibility | Must preserve hand-offs and scope distinctions |
 | `output_format` | Information the profile returns to its caller | Must make completion, evidence, and unresolved items clear |
 
-The nine profile instances are Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, Verificador, Coordinador / Orchestrator Agent, Documentador, and Profesor / Mentor Agent.
+The eleven profile instances are Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, Verificador, Coordinador / Orchestrator Agent, Documentador, Profesor / Mentor Agent, Planificador SDD, and Descomponedor de tareas (Task Planner Agent).
 
 ### Requirement
 
@@ -62,6 +62,18 @@ A bounded unit of work assigned by the Coordinador to one specialist or a depend
 | `dependencies` | Work that must precede the assignment | Must identify order and blockers |
 | `approval_required` | Whether an unresolved material scope/architecture decision needs user approval | Must pause that decision until user approval |
 
+### SDD Workflow Checkpoint
+
+A conversational approval boundary before moving from planning to task decomposition and from tasks to implementation.
+
+| Field | Meaning | Validation |
+|---|---|---|
+| `stage` | Analysis, plan, tasks, implementation, or documentation | Must match the current workflow stage |
+| `artifact` | Plan or task list reviewed at the checkpoint | Must be the artifact produced for the task |
+| `approval_status` | Pending, approved, or changes requested | Only explicit user approval allows the next stage |
+| `next_action` | Action or agent that may proceed | Must remain blocked while approval is pending |
+| `harness` | Harness used for the current agent session | Must determine whether delegation is direct or manual |
+
 ### Learning Checkpoint
 
 A conversation-scoped record of the learner's demonstrated understanding and next learning need.
@@ -80,6 +92,7 @@ A conversation-scoped record of the learner's demonstrated understanding and nex
 - A Verification Finding links one task comparison to one or more Requirements and supporting evidence.
 - A Test Result belongs to a specific acceptance check and records its observed evidence independently from a Verification Finding.
 - A Coordination Assignment is owned by a profile and may depend on other assignments.
+- An SDD Workflow Checkpoint gates the next phase; approval is conversational and not a deterministic runtime permission lock.
 - A Learning Checkpoint belongs to a mentoring conversation and does not imply a persistent student record.
 
 ## State Transitions

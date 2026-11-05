@@ -31,4 +31,4 @@
 
 ## Notes
 
-- Revisión completada: los nueve perfiles, sus límites, la trazabilidad a las fuentes y los resultados verificables quedan definidos; el Coordinador / Orchestrator Agent, Documentador y Profesor / Mentor Agent tienen responsabilidades diferenciadas; no quedan marcadores de aclaración.
+- Revisión completada: los once perfiles, sus límites, la trazabilidad a las fuentes y los resultados verificables quedan definidos; el Coordinador aplica dos aprobaciones explícitas y contempla las diferencias de delegación por harness; Documentador y Profesor / Mentor Agent tienen entregables separados; no quedan marcadores de aclaración.

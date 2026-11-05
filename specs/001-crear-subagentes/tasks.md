@@ -6,7 +6,7 @@
 
 **Tests**: No separate automated test suite was requested. Validate the workspace agent files and behavior using the scenarios in `quickstart.md`.
 
-**Organization**: Tasks are grouped by user story. Each profile is implemented in its own file so independent roles can be developed in parallel.
+**Organization**: Tasks are grouped by user story. Each profile is implemented in its own file where possible. New tasks for the controlled SDD workflow are described below.
 
 ## Phase 1: Setup
 
@@ -95,7 +95,7 @@ No separate shared implementation is required: the source hierarchy and shared p
 
 ## Phase 8: User Story 6 - Coordinar el trabajo especializado (Priority: P1)
 
-**Goal**: Provide a Coordinator that understands user requests, assigns bounded work to the specialist profiles, orders dependencies, supervises acceptance, and obtains approval for material decisions.
+**Goal**: Provide a Coordinator that understands user requests, assigns bounded work to the specialist profiles, orders dependencies, supervises acceptance, obtains approval for material decisions, and enforces the two conversational approval checkpoints.
 
 **Independent Test**: Assign a cross-specialty task with a dependency and unresolved architectural decision; confirm the Coordinator presents an execution sequence, delegates specific deliverables, and asks the user before the material decision.
 
@@ -103,7 +103,7 @@ No separate shared implementation is required: the source hierarchy and shared p
 
 - [X] T008 [US6] Create `.github/agents/coordinador.agent.md` with `agent` delegation, access to the named specialist profiles, request analysis, assignment/dependency planning, integration and quality gates, incident handling, progress reporting, and user-approval boundaries.
 
-**Checkpoint**: Coordinador / Orchestrator Agent can orchestrate the other eight profiles without taking over their specialties or changing unapproved scope.
+**Checkpoint**: Coordinador / Orchestrator Agent can coordinate the other ten profiles without taking over their specialties or changing unapproved scope.
 
 ---
 
@@ -123,23 +123,39 @@ No separate shared implementation is required: the source hierarchy and shared p
 
 ## Phase 10: User Story 8 - Reforzar el aprendizaje y la autonomía (Priority: P2)
 
-**Goal**: Provide a read-only Profesor / Mentor Agent that assesses understanding interactively, corrects misconceptions, supports practice and defense preparation, and limits progress claims to accessible context.
+**Goal**: Provide a learner-centered Profesor / Mentor Agent that assesses understanding interactively, writes only the approved defense artifact, and limits progress claims to accessible context.
 
 **Independent Test**: Present a completed task; confirm the profile asks technical questions and waits for answers before evaluating them, proposes targeted reinforcement, and does not claim cross-session memory.
 
 ### Implementation for User Story 8
 
-- [X] T010 [US8] Create `.github/agents/profesor-mentor.agent.md` with read/search-only tools, interactive question-and-response learning, respectful correction, targeted exercises, autonomy assessment, defense simulation, and explicit conversation-scoped progress tracking.
+- [X] T010 [US8] Create `.github/agents/profesor-mentor.agent.md` with read/search tools and `edit` for the approved defense artifact only, interactive question-and-response learning, respectful correction, targeted exercises, autonomy assessment, defense simulation, and explicit conversation-scoped progress tracking.
 
 **Checkpoint**: Profesor / Mentor Agent supports the student's ability to explain, justify, modify, and debug work rather than giving answers before assessing understanding.
 
 ---
 
-## Phase 11: Polish & Cross-Cutting Concerns
+## Phase 11: User Story 9 - Planificación SDD con dos aprobaciones (Priority: P1)
 
-**Purpose**: Validate that all nine profiles satisfy the shared contract and can be discovered in the intended environment.
+**Goal**: Add dedicated plan and task profiles and make the Coordinator pause until the user approves each artifact.
 
-- [X] T011 Revalidate all nine `.github/agents/*.agent.md` profiles and the cross-cutting SDD documents against `specs/001-crear-subagentes/quickstart.md`, `.specify/memory/constitution.md`, and `docs/source-of-truth/`; mark unavailable interactive VS Code harness checks as not run.
+**Independent Test**: Check that the Planificador writes only `plan.md`, tasks do not appear before plan approval, and implementation does not start before task approval.
+
+- [X] T017 [US9] Record official VS Code harness compatibility research and use `specs/<id>-<slug>/` for future task artifacts. **Acceptance**: documentation does not claim `agents`/`handoffs` work in Copilot or that path-level edit restrictions are enforced.
+- [X] T012 [US9] Create `.github/agents/planificador-sdd.agent.md`; create only `plan.md` in `specs/<id>-<slug>`, with traced scope, strategy, risks, acceptance criteria and checks. **Depends on**: T017. **Acceptance**: no tasks or implementation are produced.
+- [X] T013 [US9] Create `.github/agents/descomponedor-tareas.agent.md`; create only `tasks.md` from an approved plan, with numbered tasks, dependencies, affected components, criteria, evidence and status. **Depends on**: T012, T017. **Acceptance**: approved plan remains unchanged.
+- [X] T014 [US9] Update `.github/agents/coordinador.agent.md` and `.github/instructions/coordinacion-agentes.instructions.md` with the staged flow, explicit approval gates, user-selected implementer, missing-spec blocker, tracking/evidence obligations and harness-specific delegation behavior. **Depends on**: T012, T013. **Acceptance**: no task generation before plan approval and no implementation before task approval are explicit.
+- [X] T015 [US9] Update `.github/agents/documentador.agent.md`, `.github/agents/profesor-mentor.agent.md` and `.github/skills/defensa-tecnica/SKILL.md` so technical/didactic documentation and defense material have separate files and owners. **Depends on**: T014. **Acceptance**: Mentor is authorized only by instruction to create defense after verification; its broader `edit` capability is disclosed.
+- [X] T016 [US9] Update `specs/001-crear-subagentes/spec.md`, `plan.md`, `tasks.md`, `research.md`, `data-model.md`, `contracts/agent-profile-contract.md` and `quickstart.md` for eleven roles, the approved folder convention and the controlled workflow. **Depends on**: T012-T015. **Acceptance**: SDD artifacts agree and no real observatory feature plan/task is generated.
+
+**Checkpoint**: The profiles and SDD artifacts describe two user approval gates and a manual fallback in the Copilot harness.
+
+## Phase 12: Polish & Cross-Cutting Concerns
+
+**Purpose**: Validate that all eleven profiles satisfy the shared contract and can be discovered in the intended environment.
+
+- [X] T011 Revalidate all eleven `.github/agents/*.agent.md` profiles and the cross-cutting SDD documents against `specs/001-crear-subagentes/quickstart.md`, `.specify/memory/constitution.md`, and `docs/source-of-truth/`; mark unavailable interactive VS Code harness checks as not run.
+- [ ] T018 In VS Code, test the two approval gates and verify discovery/delegation in Local and Copilot harnesses. **Depends on**: T011. **Acceptance**: Local behavior and Copilot's manual continuation are observed, or unavailable checks are explicitly reported as not run.
 
 ---
 
@@ -149,8 +165,8 @@ No separate shared implementation is required: the source hierarchy and shared p
 
 - **Setup (Phase 1)**: No dependencies; add root ignore rules.
 - **Foundational (Phase 2)**: No implementation task; the shared contract is already defined in the design artifact.
-- **User Stories (Phases 3-10)**: Depend only on setup. The roles have separate files and can be implemented independently.
-- **Polish (Phase 11)**: Depends on all nine agent profiles and the SDD updates being present.
+- **User Stories (Phases 3-11)**: Depend only on setup for role files; US9 also depends on the existing coordination and SDD artifacts.
+- **Polish (Phase 12)**: Depends on all eleven agent profiles and the synchronized SDD updates.
 
 ### User Story Dependencies
 
@@ -162,12 +178,13 @@ No separate shared implementation is required: the source hierarchy and shared p
 - **User Story 6 (P1)**: Independent after setup; delegates to the other profiles when coordinating real tasks.
 - **User Story 7 (P2)**: Independent after setup.
 - **User Story 8 (P2)**: Independent after setup.
+- **User Story 9 (P1)**: Plan and task profile definitions are separate; Coordinator integration depends on both. Documentation and SDD synchronization depend on the approved workflow design.
 
 ### Parallel Opportunities
 
 - **T003 and T004** can run in parallel because they create distinct profile files.
 - **T002-T010** can be implemented in parallel after setup because each creates a distinct file and the shared behavioral contract already exists.
-- **T011** runs after all nine profile implementation tasks and synchronized SDD artifacts.
+- **T011** runs after all eleven profile implementation tasks and synchronized SDD artifacts.
 
 ---
 
@@ -191,8 +208,8 @@ Task: T004 Create .github/agents/frontend.agent.md
 1. Add Backend and Frontend profiles (US2) and validate their boundaries independently.
 2. Add QA Tester (US3) and Deploy (US4), validating observed evidence and reproducibility.
 3. Add Verificador (US5) and validate read-only source/request/plan/result comparison.
-4. Add Coordinador / Orchestrator Agent (US6), Documentador (US7), and Profesor / Mentor Agent (US8); validate their delegation, documentation, and learning boundaries.
-5. Run T011 across all profiles and the quickstart scenarios.
+4. Add Coordinador / Orchestrator Agent (US6), Documentador (US7), and Profesor / Mentor Agent (US8); validate their coordination, documentation, and learning boundaries.
+5. Add Planificador SDD and Descomponedor de tareas (US9), then run T011 across all profiles and the quickstart scenarios.
 
 ## Notes
 

@@ -36,7 +36,7 @@ Ayudar al alumno a demostrar comprensión y autonomía explicando el sistema rea
 
 ## Agentes que la utilizan
 
-Profesor/Mentor la usa para práctica interactiva; Documentador para preparar material de defensa y preguntas; Coordinador puede incluirla como etapa de preparación, no como sustituto de QA.
+Profesor/Mentor la usa para práctica interactiva y, tras la implementación verificada y a petición del Coordinador, escribe únicamente `defensa-tecnica.md`; Documentador prepara los demás documentos y preguntas; Coordinador puede incluirla como etapa de preparación, no como sustituto de QA.
 
 ## Referencias
 

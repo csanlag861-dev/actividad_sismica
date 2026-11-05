@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Crea los subagentes Backend, Frontend, Analista de Requisitos, QA Tester, Deploy y Verificador, junto con un Coordinador / Orchestrator Agent que interprete peticiones, delegue, planifique, supervise, coordine, solicite control de calidad y consulte al usuario ante decisiones importantes; un Documentador que mantenga documentación técnica y didáctica, registre decisiones y pruebas y ayude a preparar la defensa; y un Profesor / Mentor Agent que evalúe comprensión, haga preguntas, corrija, refuerce conceptos, siga el progreso y prepare la defensa."
+**Input**: User description: "Crear los agentes especializados del Observatorio y establecer una secuencia SDD controlada por el Coordinador: análisis, plan con aprobación explícita, tareas con segunda aprobación, implementación con evidencia y documentación/defensa posterior."
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -137,6 +137,23 @@ Como alumno, quiero que el Profesor / Mentor Agent compruebe mi comprensión del
 3. **Given** una sesión de aprendizaje, **When** el Mentor registra progreso y dificultades, **Then** resume conceptos demostrados y pendientes dentro del contexto disponible, sin afirmar memoria persistente entre sesiones.
 4. **Given** una simulación de defensa, **When** el Mentor pregunta por implementación, alternativas y limitaciones, **Then** evalúa si el alumno puede justificar decisiones y razonar cómo modificar o depurar el trabajo sin depender completamente de la IA.
 
+---
+
+### User Story 9 - Planificar y descomponer con aprobaciones (Priority: P1)
+
+Como responsable del proyecto, quiero que el Coordinador detenga el flujo después del plan y después de las tareas hasta recibir mi aprobación explícita, para revisar alcance y trabajo antes de cada etapa posterior.
+
+**Independent Test**: Presentar una petición de desarrollo; comprobar que se genera solo un plan, que no aparecen tareas ni código antes de aprobarlo, y que la implementación tampoco comienza antes de aprobar las tareas.
+
+**Acceptance Scenarios**:
+
+1. **Given** una petición de desarrollo, **When** termina el análisis, **Then** el Planificador crea únicamente `plan.md` en `specs/<id>-<slug>/` y el Coordinador presenta el plan para aprobación.
+2. **Given** que el plan no ha sido aprobado, **When** el flujo está en el primer punto de control, **Then** no se crean tareas ni se inicia implementación.
+3. **Given** un plan aprobado, **When** el Descomponedor recibe la tarea, **Then** crea únicamente `tasks.md` en la misma carpeta sin modificar el plan.
+4. **Given** que las tareas no han sido aprobadas, **When** el flujo está en el segundo punto de control, **Then** no se inicia implementación.
+5. **Given** tareas aprobadas, **When** se implementan, **Then** los estados y resultados se respaldan con verificaciones observadas; Documentador y Mentor reciben archivos distintos solo después de completar las comprobaciones.
+6. **Given** un harness Copilot que no permite `agents` ni `handoffs`, **When** el Coordinador alcanza una transición, **Then** informa al usuario del perfil exacto y encargo para invocarlo manualmente sin saltarse las aprobaciones.
+
 ### Edge Cases
 
 - Si dos documentos parecen discrepar, los agentes distinguen los requisitos del enunciado y el contrato de las aclaraciones de las guías, y señalan la discrepancia en vez de inventar una regla.
@@ -148,14 +165,18 @@ Como alumno, quiero que el Profesor / Mentor Agent compruebe mi comprensión del
 - Si una delegación o integración requiere una decisión de arquitectura o una ampliación de alcance que no haya aprobado el usuario, el Coordinador informa del bloqueo y espera esa decisión antes de continuar con el cambio.
 - Si faltan resultados de pruebas, decisiones confirmadas o evidencia para sincronizar la documentación, el Documentador los señala como pendientes y no los inventa.
 - Si el contexto de una sesión no permite recuperar el historial de aprendizaje, el Profesor / Mentor Agent informa de esa limitación y reconstruye el seguimiento preguntando al alumno; no atribuye progreso persistente que no puede observar.
+- Si un usuario solicita avanzar sin aprobar el plan o las tareas, el Coordinador explica qué aprobación falta y mantiene el flujo detenido.
+- Si una petición requiere cambiar un plan o tareas ya aprobados, el Coordinador explica el impacto y solicita autorización antes de modificar el alcance aprobado.
+- Si la delegación automática no está disponible en el harness activo, el Coordinador informa de la transición manual necesaria y no presenta una delegación como ejecutada.
+- Si un cambio material carece de especificación o criterios SDD suficientes, el Coordinador detiene la planificación y deriva al flujo SDD existente antes de solicitar el plan; el Planificador no crea ni amplía la especificación.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: La solución MUST proporcionar exactamente nueve perfiles identificables: Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, Verificador, Coordinador / Orchestrator Agent, Documentador y Profesor / Mentor Agent.
+- **FR-001**: La solución MUST proporcionar exactamente 11 perfiles identificables: Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, Verificador, Coordinador / Orchestrator Agent, Documentador, Profesor / Mentor Agent, Planificador SDD y Descomponedor de tareas (Task Planner Agent).
 - **FR-002**: Cada perfil MUST declarar su propósito, responsabilidades, resultados esperados y límites respecto a los otros perfiles.
-- **FR-003**: Los nueve perfiles MUST consultar y respetar la constitución del proyecto y los documentos aplicables de `docs/source-of-truth/` antes de recomendar o realizar trabajo del observatorio.
+- **FR-003**: Los once perfiles MUST consultar y respetar la constitución del proyecto y los documentos aplicables de `docs/source-of-truth/` antes de recomendar o realizar trabajo del observatorio.
 - **FR-004**: Los perfiles MUST distinguir entre requisitos obligatorios, decisiones del estudiante y propuestas opcionales; las guías y FAQ MUST aclarar, pero no añadir obligaciones o modificar la rúbrica.
 - **FR-005**: El perfil Analista de Requisitos MUST convertir necesidades en requisitos priorizados, criterios de aceptación comprobables y dependencias explícitas, conservando la trazabilidad con las fuentes.
 - **FR-006**: El perfil Backend MUST orientar su trabajo a los requisitos de ingesta, tratamiento fiel y trazable de datos, idempotencia y revisiones, persistencia, cuarentena y contrato de consulta aplicables al backend.
@@ -178,6 +199,14 @@ Como alumno, quiero que el Profesor / Mentor Agent compruebe mi comprensión del
 - **FR-023**: El Profesor / Mentor Agent MUST evaluar comprensión mediante preguntas técnicas específicas y esperar la respuesta del alumno antes de ofrecer la corrección o explicación completa.
 - **FR-024**: El Profesor / Mentor Agent MUST corregir errores conceptuales con respeto, proponer refuerzo o ejercicios y evaluar la capacidad del alumno para justificar, modificar y depurar el trabajo.
 - **FR-025**: El Profesor / Mentor Agent MUST informar las limitaciones de contexto o memoria y MUST NOT afirmar seguimiento persistente entre sesiones si no existe un registro accesible.
+- **FR-026**: El Planificador SDD MUST analizar requisitos, estado, arquitectura, dependencias y riesgos, y crear únicamente `plan.md` en `specs/<id>-<slug>/`; MUST NOT crear tareas ni implementar código.
+- **FR-027**: El Descomponedor de tareas MUST generar únicamente `tasks.md` a partir de un `plan.md` aprobado, sin modificar ese plan ni implementar código. Cada tarea MUST incluir orden, dependencias, instrucciones, archivos/componentes previsibles, criterios de aceptación, verificaciones y estado.
+- **FR-028**: El Coordinador MUST detener el flujo después de presentar el plan y esperar aprobación explícita antes de generar tareas; MUST detenerlo de nuevo tras presentar `tasks.md` y esperar aprobación antes de implementar.
+- **FR-029**: El Coordinador MUST respetar el agente implementador indicado por el usuario, supervisar dependencias y comunicar agente, resultado, evidencia y aprobación pendiente.
+- **FR-030**: El Coordinador MUST distinguir las capacidades por harness: en Local puede usar la delegación configurada; en Copilot, donde `agents` y `handoffs` no son compatibles, MUST guiar la invocación manual y no declarar delegación automática.
+- **FR-031**: Después de completar y verificar la implementación, el Documentador MUST escribir documentación técnica y didáctica en archivos separados de `defensa-tecnica.md`; el Profesor / Mentor Agent MUST crear este último en la carpeta de la tarea sin sobrescribir los documentos del Documentador.
+- **FR-032**: Las restricciones de un agente sobre archivos de salida MUST declararse y verificarse; la solución MUST NOT afirmar que los permisos estándar de edición restringen técnicamente la escritura a una ruta determinada.
+- **FR-033**: Si una petición de cambio material no tiene especificación o criterios SDD suficientes, el Coordinador MUST detener la planificación y utilizar el flujo SDD existente antes de encargar el plan; el Planificador MUST NOT suplir ni modificar la especificación.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -189,7 +218,7 @@ Como alumno, quiero que el Profesor / Mentor Agent compruebe mi comprensión del
 
 ### Measurable Outcomes
 
-- **SC-001**: Los nueve perfiles solicitados están disponibles y se pueden distinguir por nombre y especialidad.
+- **SC-001**: Los once perfiles solicitados están disponibles y se pueden distinguir por nombre y especialidad.
 - **SC-002**: En una revisión de aceptación, el 100 % de los perfiles identifica las fuentes del proyecto y diferencia requisitos obligatorios de decisiones y propuestas opcionales.
 - **SC-003**: Una tarea de ejemplo asignada a cada perfil produce responsabilidades y límites coherentes con su especialidad, sin duplicar la autoridad de otro perfil.
 - **SC-004**: En todas las pruebas de aceptación revisadas, QA Tester separa el resultado observado del esperado y no declara superada ninguna prueba no ejecutada.
@@ -198,14 +227,20 @@ Como alumno, quiero que el Profesor / Mentor Agent compruebe mi comprensión del
 - **SC-007**: En una tarea que implique varias especialidades, el Coordinador / Orchestrator Agent entrega una asignación con responsables, resultados y dependencias, e identifica cualquier decisión material que requiere aprobación antes de que se realice.
 - **SC-008**: Para cada cambio documentado, el Documentador diferencia información observada de supuestos y mantiene referencias coherentes con el código y los artefactos SDD pertinentes.
 - **SC-009**: En una sesión de mentoría, Profesor / Mentor Agent formula preguntas sobre la tarea concreta, evalúa las respuestas y deja una síntesis de conceptos demostrados y pendientes limitada al contexto accesible.
+- **SC-010**: En las pruebas de flujo, no se crean tareas antes de aprobación del plan ni implementación antes de aprobación de tareas.
+- **SC-011**: Los perfiles Planificador y Descomponedor escriben sus artefactos designados y dejan intactos los artefactos aprobados que no les corresponden.
+- **SC-012**: El flujo informa la delegación compatible con el harness y documenta que las restricciones de ruta son instrucciones, no aislamiento técnico.
+- **SC-013**: Para un cambio material sin especificación o criterios SDD suficientes, el Coordinador detiene la planificación y deriva al flujo SDD existente sin que el Planificador modifique la spec.
 
 ## Assumptions
 
 - Los agentes son asistentes de trabajo para este repositorio y deben adaptar sus acciones al alcance y estado real del proyecto.
 - El enunciado y su rúbrica determinan las tareas obligatorias; el contrato define las obligaciones de consulta e integración; la constitución fija principios; la guía y las FAQ explican sin ampliar los requisitos.
 - Los perfiles pueden coordinarse cuando una tarea cruza especialidades, pero deben identificar explícitamente sus límites y dependencias.
-- La solicitud establece nueve roles en total, incluyendo los seis perfiles especializados existentes y los tres perfiles nuevos, y no solicita obligar a adoptar herramientas o infraestructura opcionales.
+- La solicitud establece once roles en total, incluyendo los agentes del Observatorio y los nuevos perfiles Planificador y Descomponedor; no exige herramientas o infraestructura opcionales.
 - El Verificador revisa la correspondencia y completitud del trabajo, mientras que QA Tester se centra en ejecutar o comprobar pruebas y registrar evidencia observada.
-- El Coordinador puede delegar a los siete agentes especializados existentes en el workspace; no reemplaza sus competencias ni otorga permisos que el perfil delegado no tenga.
+- El Coordinador coordina los otros diez perfiles, sin reemplazar sus competencias ni otorgar permisos que el perfil delegado no tenga. La invocación depende del harness activo.
 - El Documentador actualiza documentación del proyecto y artefactos SDD pertinentes; no sustituye al propietario de requisitos ni cambia la constitución sin autorización.
 - El seguimiento de aprendizaje del Profesor / Mentor Agent se limita al contexto conversacional disponible; guardar un registro duradero requiere que el alumno lo solicite.
+- Las carpetas de tareas futuras siguen la convención existente `specs/<id>-<slug>/`; esta configuración no genera artefactos para una funcionalidad real del observatorio.
+- Las aprobaciones son puntos de control conversacionales. Las definiciones estándar de agentes no proporcionan una barrera infalible contra que un modelo omita instrucciones.

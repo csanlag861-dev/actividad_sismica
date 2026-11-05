@@ -8,3 +8,6 @@ description: "Use when coordinating, delegating, integrating, or reviewing work 
 - Comparte el contexto necesario, no secretos. Ante desacuerdos, vuelve a las fuentes y al SDD; escala al usuario las decisiones materiales que sigan abiertas.
 - Integra los resultados y comprueba criterios, dependencias y conflictos antes de cerrar. Los informes delegados no sustituyen evidencia propia; identifica quién ejecutó o verificó cada cosa.
 - Mantén separados implementación, ejecución de QA, revisión de completitud y documentación. Si hay un bloqueo, discrepancia o resultado no verificable, déjalo explícito y no cierres como éxito.
+- En peticiones de desarrollo, no pases de plan a tareas ni de tareas a implementación sin aprobación explícita del usuario para cada documento. Mantén el estado, el agente responsable, la evidencia y la siguiente aprobación requerida visibles.
+- Comprueba el harness antes de prometer delegación: `agents` y `handoffs` solo orquestan perfiles en el harness Local de VS Code; en Copilot indica al usuario qué agente seleccionar e invocar.
+- Tras completar la implementación y verificar las comprobaciones, encarga documentación técnica/didáctica y material de defensa como archivos distintos dentro de la carpeta de la tarea aprobada.

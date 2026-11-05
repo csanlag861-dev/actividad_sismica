@@ -2,7 +2,7 @@
 
 ## Decisión 1: Ubicación y descubrimiento de los perfiles
 
-- **Decision**: Crear nueve perfiles como archivos Markdown `*.agent.md` en `.github/agents/`.
+- **Decision**: Crear once perfiles como archivos Markdown `*.agent.md` en `.github/agents/`.
 - **Rationale**: Es la ubicación de ámbito workspace documentada para agentes personalizados de VS Code y permite compartir las definiciones en el repositorio.
 - **Alternatives considered**: Perfiles de usuario fuera del repositorio; instrucciones globales; skills. Se descartan porque la petición define subagentes específicos de este proyecto, no preferencias personales ni reglas siempre activas.
 
@@ -37,3 +37,23 @@
 - **Alternatives considered**: Confiar solo en una comprobación textual o declarar funcionalidad sin abrir los perfiles. Se descartan porque no verificarían el descubrimiento real ni las responsabilidades.
 
 **Referencia consultada**: Documentación oficial de VS Code sobre [custom agent file locations](https://code.visualstudio.com/docs/agent-customization/custom-agents#_custom-agent-file-locations), [file structure and fields](https://code.visualstudio.com/docs/agents/reference/custom-agent-file-reference#_file-structure), [tools](https://code.visualstudio.com/docs/agents/reference/custom-agent-file-reference#_tools), y [harness compatibility](https://code.visualstudio.com/docs/agents/reference/custom-agent-file-reference#_harness-compatibility).
+
+## Decisión 7: Flujo de aprobación SDD
+
+- **Decision**: Intercalar dos aprobaciones explícitas del usuario: después del plan antes de tareas, y después de tareas antes de implementar. Los artefactos futuros se ubican en `specs/<id>-<slug>/`.
+- **Rationale**: Permite revisar alcance y orden de implementación antes de que los agentes avancen; coincide con la estructura SDD existente del repositorio.
+- **Alternatives considered**: Generar plan, tareas e implementación en una sola delegación; crear carpetas bajo `/spec/`. Se descartan porque omiten los puntos de control solicitados o introducen una estructura paralela a `specs/`.
+
+## Decisión 8: Delegación según harness
+
+- **Decision**: En Local, el Coordinador usa `tools: ['agent']` y `agents` con los nombres permitidos. En el harness Copilot, la continuación entre perfiles es manual y dirigida por el Coordinador.
+- **Rationale**: La referencia oficial dice que `agents` y `handoffs` no son aceptados por el esquema Copilot, aunque sí son compatibles con Local. Los agentes de workspace siguen compartiendo la ubicación y el formato `.agent.md`.
+- **Alternatives considered**: Prometer delegación automática en Copilot o confiar en `handoffs`. Se descartan porque esos campos no son admitidos en dicho harness.
+
+**Referencia consultada**: Documentación oficial de VS Code, [Custom agent file reference — Harness compatibility](https://code.visualstudio.com/docs/agents/reference/custom-agent-file-reference#_harness-compatibility) y [Run subagents](https://code.visualstudio.com/docs/agents/run/subagents).
+
+## Decisión 9: Alcance de escritura del Profesor/Mentor
+
+- **Decision**: Añadir el permiso `edit` al Mentor para crear únicamente `defensa-tecnica.md` después de que implementación y verificaciones estén completas; mantener los otros entregables de documentación bajo el Documentador.
+- **Rationale**: Cumple la solicitud de guardar material de defensa en la carpeta de la tarea y evita que ambos perfiles escriban los mismos documentos.
+- **Alternatives considered**: Mantener al Mentor read-only y trasladar defensa al Documentador. Se descarta tras la aprobación explícita del usuario. La herramienta `edit` no ofrece restricción estándar de ruta, de modo que la separación queda como instrucción verificable, no como permiso técnico.

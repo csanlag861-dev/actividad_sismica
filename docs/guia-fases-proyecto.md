@@ -55,6 +55,34 @@ Esta guía organiza el trabajo; no sustituye los requisitos de `ENUNCIADO.md`, e
 
 **Punto de control:** Compose debe ir completándose a medida que se construyen los servicios. No declares el sistema completo porque el archivo exista: comprueba salud, conectividad y persistencia.
 
+**Estado de la estructura inicial (revisión local, 5 de noviembre de 2026):** `compose.yaml`
+declara los cinco servicios separados, nombres internos `kafka`/`postgres`, volúmenes para Kafka
+y PostgreSQL, retención Kafka y publica únicamente la API en `127.0.0.1:8000`. `.env.example`
+contiene una clave de reemplazo, no una credencial real; `.env` está excluido por Git. Esto valida
+la configuración declarada, no el funcionamiento de los contenedores. Productor, consumidor y API
+siguen siendo placeholders cuyo comando termina con `PENDIENTE`; no cuentan como servicios
+implementados, y sus imágenes no se construyen desde el código del proyecto. Por tanto, aún faltan
+su implementación, salud/reintentos donde correspondan y la verificación de persistencia y
+comunicación en ejecución. No se debe presentar la pila como funcional ni continuar a una
+demostración extremo a extremo.
+
+Comprobaciones observadas en ese equipo:
+
+- `docker compose version`: **NO DISPONIBLE**; la invocación falló porque PowerShell no reconoce
+  `docker`. No se ejecutaron `docker compose config`, `docker compose up --build -d`, ni pruebas
+  de salud o integración.
+- Con Python 3.14.7 y PyYAML 6.0.3 disponibles localmente, se pudo analizar el YAML y comprobar
+  estáticamente los cinco nombres de servicio, volúmenes, el bind local de API, la ausencia de
+  puertos publicados para Kafka/PostgreSQL, `0.0.0.0:8000` en API y los tres comandos `PENDIENTE`.
+  Resultado: **PASÓ** solo esa inspección sintáctica/estructural; no demuestra que Compose pueda
+  interpretar interpolaciones, descargar imágenes o arrancar servicios.
+
+Cuando Docker Compose esté disponible y el backend implementado, vuelve a validar la configuración
+y ejecuta `docker compose up --build -d`; después comprueba `docker compose ps`, los logs y los
+endpoints conforme al contrato. La publicación externa queda pendiente: ngrok requiere cuenta y
+authtoken local, y Netlify requiere publicar el SPA y autorizar su origen exacto en CORS. Kafka y
+PostgreSQL no deben exponerse mediante ngrok.
+
 
 ---
 

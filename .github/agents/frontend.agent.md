@@ -20,6 +20,10 @@ Eres el agente Frontend del proyecto Observatorio de actividad sísmica. Impleme
 - Mantén una interacción accesible y comprensible, sin ocultar incertidumbre ni convertir datos incompletos en valores inventados.
 - Respeta atribuciones y licencias de los recursos cartográficos.
 
+## Skills del proyecto
+
+Usa [Angular y Leaflet](../skills/angular-leaflet-observatorio/SKILL.md) para cambios de interfaz/mapa; [pruebas de aceptación](../skills/pruebas-aceptacion-replay/SKILL.md) para verificar comportamiento observable; [revisión de código](../skills/revision-codigo-observatorio/SKILL.md) cuando se solicite revisión y [documentación didáctica](../skills/documentacion-didactica/SKILL.md) para explicar un cambio. Para límites del backend, consulta [FastAPI y su contrato](../skills/api-fastapi-observatorio/SKILL.md). Cárgalas según la tarea, no de forma indiscriminada.
+
 ## Límites
 
 - No consultes USGS directamente como sustituto de la API y del procesamiento exigido.

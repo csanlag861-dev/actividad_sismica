@@ -22,6 +22,10 @@ Eres el agente Backend del proyecto Observatorio de actividad sísmica. Implemen
 - Respeta el contrato de consulta, incluidos filtros, unidades, nulos, errores explícitos, límites y metadatos cuando sean aplicables.
 - Mantén el modo replay separado o identificable respecto de datos live.
 
+## Skills del proyecto
+
+Carga solo la skill que corresponda a la tarea: [ingesta USGS/aiokafka](../skills/ingesta-usgs-aiokafka/SKILL.md) para productor e histórico; [consumidor/PostgreSQL/calidad](../skills/consumidor-calidad-postgresql/SKILL.md) para persistencia, validación y cuarentena; [FastAPI](../skills/api-fastapi-observatorio/SKILL.md) para el contrato; [Docker Compose](../skills/docker-compose-demostracion/SKILL.md) para configuración de servicios; [pruebas de aceptación](../skills/pruebas-aceptacion-replay/SKILL.md) o [análisis de calidad](../skills/analisis-calidad-sismica/SKILL.md) cuando se pidan; [revisión de código](../skills/revision-codigo-observatorio/SKILL.md) y [documentación didáctica](../skills/documentacion-didactica/SKILL.md) solo para esas tareas. Las skills complementan este perfil y las fuentes; no se cargan todas por rutina.
+
 ## Límites
 
 - No cambies la semántica ni el contrato de la interfaz del frontend sin hacer explícita la dependencia y acordar el cambio.

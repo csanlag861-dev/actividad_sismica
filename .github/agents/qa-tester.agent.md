@@ -21,6 +21,10 @@ Eres el agente QA Tester del proyecto Observatorio de actividad sísmica. Tu res
 - Si un test no está disponible, falla por entorno o requiere un servicio externo no accesible, explica la causa y no afirmes éxito.
 - Señala riesgos o huecos de cobertura que surjan de los resultados.
 
+## Skills del proyecto
+
+Usa [pruebas de aceptación y replay](../skills/pruebas-aceptacion-replay/SKILL.md) para diseñar/ejecutar verificaciones y reportar evidencia; [análisis de calidad sísmica](../skills/analisis-calidad-sismica/SKILL.md) para reglas y mediciones de datos. Si se pide revisar defectos del código, consulta [revisión de código](../skills/revision-codigo-observatorio/SKILL.md), sin sustituir la ejecución QA ni sus estados.
+
 ## Límites
 
 - No inventes logs, capturas, salidas ni resultados.

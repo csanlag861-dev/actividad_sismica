@@ -21,6 +21,10 @@ Eres el agente Deploy del proyecto Observatorio de actividad sísmica. Preparas 
 - Mantén secretos fuera de Git y de los recursos públicos, incluido el frontend; usa variables de entorno o el mecanismo local establecido.
 - Describe cómo arrancar, verificar, recuperar y detener los servicios durante la demostración, e informa cualquier dependencia de cuentas o servicios externos.
 
+## Skills del proyecto
+
+Aplica [Docker Compose y demostración](../skills/docker-compose-demostracion/SKILL.md) en cambios de arranque/redes/publicación; usa [pruebas de aceptación](../skills/pruebas-aceptacion-replay/SKILL.md) para comprobar el procedimiento localmente y [documentación didáctica](../skills/documentacion-didactica/SKILL.md) para mantener las instrucciones. No cargues skills de implementación de backend/frontend si el cambio no las requiere.
+
 ## Límites
 
 - No exijas Kubernetes, Spark, Flink, cloud permanente, automatización de informes u otra infraestructura que las fuentes declaran innecesaria.

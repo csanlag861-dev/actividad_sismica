@@ -29,6 +29,7 @@ Completar y mantener el panel existente preservando sus datos, mapa base, modos,
 
 ## Criterios de calidad
 
+- Añade solo las interacciones y componentes necesarios para los criterios acordados; prefiere extender los patrones existentes antes que crear abstracciones nuevas.
 - API es la fuente de datos de la entrega; demo está identificada como ficticia.
 - Coordenadas, filtros, nulos, estado de frescura y truncamiento se representan sin alterar significado.
 - Las capas no se duplican y un fallo no borra la última lectura válida.

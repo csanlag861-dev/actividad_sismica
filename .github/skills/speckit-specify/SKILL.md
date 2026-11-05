@@ -54,6 +54,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
+0. **Project scope gate**: Create or update a feature spec only when the user requests a new capability or a material change to requirements/behavior. For a bounded bug fix or maintenance change already covered by existing criteria, do not create a new feature spec merely to follow ceremony. Capture only approved, acceptance-relevant requirements; label optional ideas as optional and do not expand scope.
+
 The text the user typed after `/speckit-specify` in the triggering message **is** the feature description. Assume you always have it available in this conversation even if `$ARGUMENTS` appears literally below. Do not ask the user to repeat it unless they provided an empty command.
 
 Given that feature description, do this:

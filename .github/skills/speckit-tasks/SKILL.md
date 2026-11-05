@@ -54,6 +54,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
+0. **Project decision and scope gate**: Before running setup or writing `tasks.md`, verify that the request, spec, and plan do not leave material user decisions unresolved about scope, expected behavior, acceptance criteria, or validation. If any remain, do not generate or modify `tasks.md`; present the open question(s) to the user and wait for answers. Record the answers in the spec/plan as appropriate, then resume task generation. Low-impact implementation details settled by project sources or established defaults are not blockers. Generate only tasks necessary for approved acceptance criteria; do not add optional work, speculative refactors, or extra artifacts.
+
 1. **Setup**: Run `.specify/scripts/powershell/setup-tasks.ps1 -Json` from repo root and parse FEATURE_DIR, TASKS_TEMPLATE_CONTENT, TASKS_TEMPLATE, and AVAILABLE_DOCS list. `FEATURE_DIR` and `TASKS_TEMPLATE` must be absolute paths when provided. `AVAILABLE_DOCS` is a list of document names/relative paths available under `FEATURE_DIR` (for example `research.md` or `contracts/`). For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 
 2. **Load design documents**: Read from FEATURE_DIR:

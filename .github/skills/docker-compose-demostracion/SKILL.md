@@ -29,6 +29,7 @@ Preparar el arranque local reproducible y el acceso de demostración según los 
 
 ## Criterios de calidad
 
+- Mantén la topología y configuración en el mínimo que exige la demostración; no agregues servicios, herramientas ni automatizaciones opcionales como parte del cumplimiento.
 - Arranque documentado con `docker compose up --build -d` y cinco servicios obligatorios separados.
 - Persistencia, readiness/reintentos, retención y comunicación entre servicios son verificables.
 - Broker y base no quedan expuestos por el túnel; secretos fuera de archivos públicos/control de versiones.

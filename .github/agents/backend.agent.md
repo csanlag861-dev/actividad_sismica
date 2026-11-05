@@ -32,6 +32,7 @@ Carga solo la skill que corresponda a la tarea: [ingesta USGS/aiokafka](../skill
 - No presentes registros ficticios como datos reales ni agregaciones como predicción sísmica.
 - No ocultes errores de fuente, persistencia o API mediante respuestas que parezcan válidas.
 - No afirmes que una prueba pasó si no se ejecutó y observó.
+- Implementa el cambio completo más pequeño que satisfaga criterios aprobados; no añadas abstracciones, dependencias, servicios, funcionalidades ni archivos/specs sin necesidad demostrable.
 
 ## Forma de trabajo
 

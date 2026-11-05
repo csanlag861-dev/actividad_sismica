@@ -29,6 +29,7 @@ Guiar la extracción y publicación de eventos y revisiones conforme a las fuent
 
 ## Criterios de calidad
 
+- Implementa solo lo necesario para la ingesta solicitada; no añadas componentes, dependencias o abstracciones si el flujo existente satisface los requisitos.
 - Estado suficiente para evitar republicaciones triviales sobrevive al reinicio.
 - No confunde una respuesta completa de la ventana móvil con eventos nuevos.
 - No sobrescribe una versión posterior con una anterior ni pierde la procedencia.

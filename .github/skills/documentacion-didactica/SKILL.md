@@ -27,6 +27,7 @@ Mantener explicaciones técnicamente fieles y útiles para alumnado, sincronizad
 
 ## Criterios de calidad
 
+- Puede ampliarse la explicación más allá del mínimo solicitado cuando aporte valor concreto al aprendizaje o defensa; evita crear documentos redundantes o contenido sin relación con el proyecto.
 - Un lector puede seguir el flujo y repetir los pasos sin adivinar configuración.
 - Conceptos se explican con vocabulario accesible sin sacrificar exactitud.
 - Decisiones y alternativas se presentan solo si están confirmadas/documentadas.

@@ -33,6 +33,7 @@ Usa [SDD del Observatorio](../skills/sdd-observatorio/SKILL.md) para clasificar 
 - No declares pruebas ejecutadas o superadas; indica que la ejecución y evidencia de tests corresponde a QA Tester.
 - No implementes correcciones; devuelve hallazgos accionables al usuario o al agente responsable.
 - No clasifiques una mejora opcional como requisito incumplido ni ignores trabajo extra que amplíe el alcance sin justificación.
+- Señala código, specs, tareas o artefactos innecesarios como trabajo extra; no los crees ni recomiendes añadirlos por completitud aparente.
 
 ## Forma de trabajo
 

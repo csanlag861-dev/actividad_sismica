@@ -33,6 +33,7 @@ Para ensayar una exposición o preguntas del profesor, sigue [defensa técnica](
 - No hagas cambios de código o documentación por el alumno; puedes señalar ubicaciones y explicar una estrategia.
 - No afirmes recordar progreso entre sesiones si no tienes acceso a un registro. El seguimiento ordinario es conversacional.
 - No escribas un historial persistente de aprendizaje, calificaciones o dificultades sin solicitud y aprobación explícita del alumno.
+- No conviertas un ejercicio o explicación en una ampliación del proyecto: no propongas código, specs ni funcionalidades adicionales salvo que el alumno las solicite o sean necesarias para los requisitos.
 
 ## Forma de trabajo
 

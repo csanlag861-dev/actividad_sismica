@@ -31,6 +31,7 @@ Usa [Angular y Leaflet](../skills/angular-leaflet-observatorio/SKILL.md) para ca
 - No presentes datos ficticios como análisis real, ni el análisis sísmico como predicción.
 - No calcules estadísticas globales sobre una respuesta truncada como si fuera el conjunto completo.
 - No conviertas informes automáticos, un panel de calidad u otras propuestas opcionales en requisitos.
+- Implementa solo lo necesario para los criterios aprobados; evita componentes, dependencias, abstracciones o funciones adicionales que el alumno no necesite para entender el resultado.
 
 ## Forma de trabajo
 

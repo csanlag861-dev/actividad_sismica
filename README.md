@@ -96,3 +96,40 @@ npm start
 ```
 
 Abre <http://localhost:4200>. Para requisitos del proyecto, fuentes, despliegue y validación del observatorio, consulta [`docs/source-of-truth/README.md`](docs/source-of-truth/README.md).
+
+## Cómo usar GitHub Spec Kit
+```
+Orden recomendado
+Para cada funcionalidad nueva, usa este flujo:
+
+/speckit-specify <descripción de la funcionalidad>
+Crea la especificación inicial. Explica el objetivo y el problema; no hace falta que definas ya todos los detalles. Si quedan dudas, pueden anotarse para aclararlas después.
+
+/speckit-clarify
+Revisa la especificación y te pregunta por las decisiones que puedan cambiar materialmente el alcance, el comportamiento, los criterios de aceptación o la validación. Responde antes de continuar. Con la regla añadida, si queda una decisión material pendiente, no se debe avanzar al plan ni a las tareas.
+
+/speckit-plan
+Prepara el diseño técnico una vez aclaradas las decisiones relevantes.
+
+/speckit-tasks
+Desglosa el plan en tareas ordenadas y comprobables.
+
+/speckit-analyze
+Comprueba la coherencia entre la especificación, el plan y las tareas. Si detecta brechas, corrígelas antes de implementar.
+
+/speckit-implement
+Ejecuta las tareas generadas.
+
+/speckit-constitution se usa para establecer o cambiar los principios del proyecto, no en cada funcionalidad. checklist y converge son opciones para necesidades concretas, no pasos obligatorios de cada ciclo.
+
+Cómo sería la interacción
+Puedes iniciar, por ejemplo, con:
+
+/speckit-specify Quiero que el mapa permita filtrar los eventos por magnitud.
+
+Se crea la especificación inicial. Luego ejecutas /speckit-clarify; si hay una decisión relevante que no se deduce de los requisitos o de las convenciones del proyecto, el agente te pregunta y espera tu respuesta. Después continúa con plan, tareas, análisis e implementación.
+
+También puedes pedir el flujo en lenguaje natural al Coordinador: este debe encuadrar la petición con la skill SDD y guiarte por esas etapas. Los detalles de bajo impacto que ya resuelvan las fuentes o los valores predeterminados del proyecto no deberían convertirse en preguntas innecesarias.
+
+La regla de bloqueo está en SDD del Observatorio, speckit-clarify, speckit-plan y speckit-tasks.
+```

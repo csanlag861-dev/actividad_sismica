@@ -29,6 +29,7 @@ Proteger el significado y la trazabilidad de los mensajes desde Kafka hasta Post
 
 ## Criterios de calidad
 
+- Limita el modelo y el procesamiento a los datos y garantías exigidos; evita capas, tablas o dependencias extra que el alumno no necesite para explicar la solución.
 - Reprocesar un mensaje no duplica efectos y una versión antigua no revierte el estado.
 - El commit del offset ocurre después de persistencia confirmada.
 - Rechazos duraderos conservan el motivo y referencia; errores de base no se disfrazan como resultado correcto.

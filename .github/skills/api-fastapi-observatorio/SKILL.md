@@ -28,6 +28,7 @@ Mantener la interfaz de consulta coherente con el contrato versionado y servir d
 
 ## Criterios de calidad
 
+- Implementa el contrato solicitado con la solución más pequeña suficiente; no inventes rutas, parámetros ni capas de API adicionales.
 - Respuestas válidas se ajustan al contrato en forma, unidades, filtros y semántica.
 - Vacío real, dato nulo, truncamiento y fallo de infraestructura son estados distintos.
 - Los errores no se silencian ni se transforman en éxito falso.

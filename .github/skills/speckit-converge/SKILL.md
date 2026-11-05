@@ -73,6 +73,8 @@ of the code relative to the feature's artifacts — no git, no branch comparison
 
 ## Operating Constraints
 
+**Scope Limit**: Append tasks only for concrete gaps against approved requirements, acceptance criteria, or constitution principles. Do not turn optional improvements, speculative refactors, or preferences into new work. If no required gaps remain, leave `tasks.md` unchanged.
+
 **APPEND-ONLY, NEVER REWRITE**: The command's **only** write is appending a new
 `## Phase N: Convergence` section to `tasks.md`. It MUST NOT:
 

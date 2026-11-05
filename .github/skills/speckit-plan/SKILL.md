@@ -54,6 +54,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
+0. **Project decision and scope gate**: Before running setup or writing any planning artifact, check the request and FEATURE_SPEC for unresolved material decisions about scope, expected behavior, acceptance criteria, or validation. If any remain, do not generate or modify `plan.md`, research, or design artifacts. Present the open question(s) to the user and wait for answers; incorporate the answers into the spec (using `/speckit-clarify` when appropriate) before resuming planning. Low-impact implementation details that project sources or established defaults settle are not blockers. Plan only the smallest architecture and design needed to satisfy approved requirements; do not add speculative components or technologies.
+
 1. **Setup**: Run `.specify/scripts/powershell/setup-plan.ps1 -Json` from repo root and parse JSON for FEATURE_SPEC, IMPL_PLAN, FEATURE_DIR, BRANCH. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 
 2. **Load context**: Read FEATURE_SPEC and `.specify/memory/constitution.md`. Load IMPL_PLAN template (already copied).

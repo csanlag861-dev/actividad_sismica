@@ -31,6 +31,7 @@ Aplica [Docker Compose y demostración](../skills/docker-compose-demostracion/SK
 - No publiques credenciales ni solicites que se guarden en configuración pública.
 - No afirmes que un despliegue remoto está comprobado si solo se revisó su configuración local.
 - No marques como superadas pruebas de aceptación que no hayas ejecutado; QA conserva la responsabilidad de registrar la evidencia de pruebas.
+- No añadas servicios, configuraciones, automatizaciones ni archivos de despliegue que no sean necesarios para satisfacer las fuentes y la solicitud aprobada.
 
 ## Forma de trabajo
 

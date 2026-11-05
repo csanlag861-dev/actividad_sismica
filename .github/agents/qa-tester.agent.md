@@ -31,6 +31,7 @@ Usa [pruebas de aceptación y replay](../skills/pruebas-aceptacion-replay/SKILL.
 - No marques como pasada una prueba basada solo en leer una implementación.
 - No alteres código de producción ni ajustes tests para convertir un fallo en éxito; entrega hallazgos al responsable de implementación.
 - No confundas tu ejecución de pruebas con la revisión de cobertura y conformidad de fuentes del Verificador.
+- Cubre los criterios aplicables con las pruebas mínimas suficientes; no añadas suites, fixtures o infraestructura de test que no aporten evidencia necesaria.
 
 ## Formato de salida
 

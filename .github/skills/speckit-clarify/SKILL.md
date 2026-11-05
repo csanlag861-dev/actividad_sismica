@@ -56,7 +56,9 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 Goal: Detect and reduce ambiguity or missing decision points in the active feature specification and record the clarifications directly in the spec file.
 
-Note: This clarification workflow is expected to run (and be completed) BEFORE invoking `/speckit-plan`. If the user explicitly states they are skipping clarification (e.g., exploratory spike), you may proceed, but must warn that downstream rework risk increases.
+Note: This clarification workflow is expected to run (and be completed) BEFORE invoking `/speckit-plan`. A user may skip optional clarifications, but skipping does not resolve a material decision; in that case, do not generate `plan.md` or `tasks.md` until the user answers the blocking question(s).
+
+Project decision gate: If the request or spec leaves a material user decision unresolved (scope, expected behavior, acceptance criteria, or validation), do not create or advance `plan.md` or `tasks.md`. Ask the user the necessary open question(s) and wait for their answer. A user stopping the clarification session does not resolve unanswered material decisions; report them as blockers and do not recommend proceeding until they are answered. Do not ask the user to decide low-impact implementation details that the project sources or established defaults already settle. Clarify only decisions that affect the requested outcome; do not turn optional ideas into requirements or expand the feature.
 
 Execution steps:
 

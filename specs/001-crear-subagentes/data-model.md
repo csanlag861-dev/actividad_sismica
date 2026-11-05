@@ -16,7 +16,7 @@ A workspace-discoverable specialist definition.
 | `boundaries` | Work the profile must not claim or perform as its primary responsibility | Must preserve hand-offs and scope distinctions |
 | `output_format` | Information the profile returns to its caller | Must make completion, evidence, and unresolved items clear |
 
-The six profile instances are Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, and Verificador.
+The nine profile instances are Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, Verificador, Coordinador / Orchestrator Agent, Documentador, and Profesor / Mentor Agent.
 
 ### Requirement
 
@@ -50,11 +50,37 @@ An observed outcome recorded by QA Tester for an acceptance check.
 | `evidence` | Log, output, screenshot, or reproducible observation | Required to claim a test passed |
 | `status` | Passed, failed, or not run | A not-run test must never be reported as passed |
 
+### Coordination Assignment
+
+A bounded unit of work assigned by the Coordinador to one specialist or a dependency-ordered set of specialists.
+
+| Field | Meaning | Validation |
+|---|---|---|
+| `request` | User outcome being addressed | Must remain traceable to the original request |
+| `assignee` | Specialist profile responsible for a deliverable | Must identify one primary owner per deliverable |
+| `deliverable` | Concrete expected result | Must be independently reviewable |
+| `dependencies` | Work that must precede the assignment | Must identify order and blockers |
+| `approval_required` | Whether an unresolved material scope/architecture decision needs user approval | Must pause that decision until user approval |
+
+### Learning Checkpoint
+
+A conversation-scoped record of the learner's demonstrated understanding and next learning need.
+
+| Field | Meaning | Validation |
+|---|---|---|
+| `concept` | Project concept or decision being assessed | Must relate to inspected or discussed project work |
+| `learner_response` | Student's answer to a mentor question | Must be observed before correction is presented |
+| `understanding` | Strengths and misconceptions demonstrated | Must be grounded in the response |
+| `next_step` | Explanation, exercise, or defense question | Must target a demonstrated learning need |
+| `scope` | Available conversation/context lifetime | Must not imply cross-session persistence without an approved accessible record |
+
 ## Relationships
 
 - Each Agent Profile is guided by multiple Requirements and has one distinct primary responsibility.
 - A Verification Finding links one task comparison to one or more Requirements and supporting evidence.
 - A Test Result belongs to a specific acceptance check and records its observed evidence independently from a Verification Finding.
+- A Coordination Assignment is owned by a profile and may depend on other assignments.
+- A Learning Checkpoint belongs to a mentoring conversation and does not imply a persistent student record.
 
 ## State Transitions
 

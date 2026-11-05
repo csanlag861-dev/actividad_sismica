@@ -93,11 +93,53 @@ No separate shared implementation is required: the source hierarchy and shared p
 
 ---
 
-## Phase 8: Polish & Cross-Cutting Concerns
+## Phase 8: User Story 6 - Coordinar el trabajo especializado (Priority: P1)
 
-**Purpose**: Validate that all six profiles satisfy the shared contract and can be discovered in the intended environment.
+**Goal**: Provide a Coordinator that understands user requests, assigns bounded work to the specialist profiles, orders dependencies, supervises acceptance, and obtains approval for material decisions.
 
-- [X] T008 Validate all six `.github/agents/*.agent.md` files against `specs/001-crear-subagentes/contracts/agent-profile-contract.md` and execute the static and role-behavior checks in `specs/001-crear-subagentes/quickstart.md`; report any VS Code harness-dependent checks that cannot be observed as not run.
+**Independent Test**: Assign a cross-specialty task with a dependency and unresolved architectural decision; confirm the Coordinator presents an execution sequence, delegates specific deliverables, and asks the user before the material decision.
+
+### Implementation for User Story 6
+
+- [X] T008 [US6] Create `.github/agents/coordinador.agent.md` with `agent` delegation, access to the named specialist profiles, request analysis, assignment/dependency planning, integration and quality gates, incident handling, progress reporting, and user-approval boundaries.
+
+**Checkpoint**: Coordinador / Orchestrator Agent can orchestrate the other eight profiles without taking over their specialties or changing unapproved scope.
+
+---
+
+## Phase 9: User Story 7 - Mantener y explicar la documentación (Priority: P2)
+
+**Goal**: Provide a Documentador that keeps technical and didactic project documentation synchronized with code and SDD, records verified decisions and test evidence, and prepares defense materials.
+
+**Independent Test**: Provide a completed code change, a confirmed decision, and an unexecuted test; confirm the profile documents only supported facts and clearly leaves the test unverified.
+
+### Implementation for User Story 7
+
+- [X] T009 [US7] Create `.github/agents/documentador.agent.md` with documentation-only editing boundaries, technical and learner-level explanations, SDD synchronization, decision alternatives, observed-test reporting, and defense preparation.
+
+**Checkpoint**: Documentador produces traceable, understandable, synchronized documentation without editing application code or inventing evidence.
+
+---
+
+## Phase 10: User Story 8 - Reforzar el aprendizaje y la autonomía (Priority: P2)
+
+**Goal**: Provide a read-only Profesor / Mentor Agent that assesses understanding interactively, corrects misconceptions, supports practice and defense preparation, and limits progress claims to accessible context.
+
+**Independent Test**: Present a completed task; confirm the profile asks technical questions and waits for answers before evaluating them, proposes targeted reinforcement, and does not claim cross-session memory.
+
+### Implementation for User Story 8
+
+- [X] T010 [US8] Create `.github/agents/profesor-mentor.agent.md` with read/search-only tools, interactive question-and-response learning, respectful correction, targeted exercises, autonomy assessment, defense simulation, and explicit conversation-scoped progress tracking.
+
+**Checkpoint**: Profesor / Mentor Agent supports the student's ability to explain, justify, modify, and debug work rather than giving answers before assessing understanding.
+
+---
+
+## Phase 11: Polish & Cross-Cutting Concerns
+
+**Purpose**: Validate that all nine profiles satisfy the shared contract and can be discovered in the intended environment.
+
+- [X] T011 Revalidate all nine `.github/agents/*.agent.md` profiles and the cross-cutting SDD documents against `specs/001-crear-subagentes/quickstart.md`, `.specify/memory/constitution.md`, and `docs/source-of-truth/`; mark unavailable interactive VS Code harness checks as not run.
 
 ---
 
@@ -107,8 +149,8 @@ No separate shared implementation is required: the source hierarchy and shared p
 
 - **Setup (Phase 1)**: No dependencies; add root ignore rules.
 - **Foundational (Phase 2)**: No implementation task; the shared contract is already defined in the design artifact.
-- **User Stories (Phases 3-7)**: Depend only on setup. The roles have separate files and can be implemented independently.
-- **Polish (Phase 8)**: Depends on all six agent profiles being present.
+- **User Stories (Phases 3-10)**: Depend only on setup. The roles have separate files and can be implemented independently.
+- **Polish (Phase 11)**: Depends on all nine agent profiles and the SDD updates being present.
 
 ### User Story Dependencies
 
@@ -117,12 +159,15 @@ No separate shared implementation is required: the source hierarchy and shared p
 - **User Story 3 (P2)**: Independent after setup.
 - **User Story 4 (P2)**: Independent after setup.
 - **User Story 5 (P1)**: Independent after setup.
+- **User Story 6 (P1)**: Independent after setup; delegates to the other profiles when coordinating real tasks.
+- **User Story 7 (P2)**: Independent after setup.
+- **User Story 8 (P2)**: Independent after setup.
 
 ### Parallel Opportunities
 
 - **T003 and T004** can run in parallel because they create distinct profile files.
-- **T002, T003, T004, T005, T006, and T007** can run in parallel after setup because each writes a separate file and the shared behavioral contract already exists.
-- **T008** runs after all profile implementation tasks.
+- **T002-T010** can be implemented in parallel after setup because each creates a distinct file and the shared behavioral contract already exists.
+- **T011** runs after all nine profile implementation tasks and synchronized SDD artifacts.
 
 ---
 
@@ -146,7 +191,8 @@ Task: T004 Create .github/agents/frontend.agent.md
 1. Add Backend and Frontend profiles (US2) and validate their boundaries independently.
 2. Add QA Tester (US3) and Deploy (US4), validating observed evidence and reproducibility.
 3. Add Verificador (US5) and validate read-only source/request/plan/result comparison.
-4. Run T008 across all profiles and the quickstart scenarios.
+4. Add Coordinador / Orchestrator Agent (US6), Documentador (US7), and Profesor / Mentor Agent (US8); validate their delegation, documentation, and learning boundaries.
+5. Run T011 across all profiles and the quickstart scenarios.
 
 ## Notes
 

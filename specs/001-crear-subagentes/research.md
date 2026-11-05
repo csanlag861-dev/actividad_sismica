@@ -2,7 +2,7 @@
 
 ## Decisión 1: Ubicación y descubrimiento de los perfiles
 
-- **Decision**: Crear seis perfiles como archivos Markdown `*.agent.md` en `.github/agents/`.
+- **Decision**: Crear nueve perfiles como archivos Markdown `*.agent.md` en `.github/agents/`.
 - **Rationale**: Es la ubicación de ámbito workspace documentada para agentes personalizados de VS Code y permite compartir las definiciones en el repositorio.
 - **Alternatives considered**: Perfiles de usuario fuera del repositorio; instrucciones globales; skills. Se descartan porque la petición define subagentes específicos de este proyecto, no preferencias personales ni reglas siempre activas.
 
@@ -24,7 +24,13 @@
 - **Rationale**: Esta jerarquía está expresada en la constitución y las fuentes, y evita que los agentes conviertan opciones en obligaciones o que declaren resultados no comprobados.
 - **Alternatives considered**: Tratar todas las guías como requisitos equivalentes o combinar QA y Verificador en un solo rol. Se descartan porque contradirían la gobernanza documentada y la distinción de responsabilidades de la especificación.
 
-## Decisión 5: Validación
+## Decisión 5: Coordinación, documentación y mentoría
+
+- **Decision**: Mantener Coordinador / Orchestrator Agent, Documentador y Profesor / Mentor Agent como perfiles diferenciados. El Coordinador puede delegar y revisar, pero solicita aprobación ante cambios materiales; el Documentador edita documentos pero no modifica código; el Mentor hace coaching interactivo y limita el seguimiento al contexto accesible salvo registro aprobado por el alumno.
+- **Rationale**: Estas fronteras evitan que la orquestación sustituya la especialidad, que la documentación invente resultados o cambie requisitos y que el seguimiento académico prometa memoria persistente no disponible.
+- **Alternatives considered**: Un solo perfil generalista que coordine, implemente, documente y enseñe; o almacenar automáticamente un historial del alumno. Se descartan por mezcla de responsabilidades, riesgo de cambios no autorizados y persistencia de datos personales de aprendizaje no solicitada.
+
+## Decisión 6: Validación
 
 - **Decision**: Comprobar la forma y el contenido de cada perfil, revisar permisos y responsabilidades contra el contrato de perfiles, y confirmar el descubrimiento y uso en el selector de agentes de VS Code.
 - **Rationale**: La validación cubre tanto la estructura de los archivos como el propósito funcional de separación de roles. La documentación oficial confirma `.github/agents/` como ubicación workspace, archivos `.agent.md`, y que `description` es necesaria en el esquema de Copilot. La disponibilidad de alias y el comportamiento pueden variar por harness; hay que verificar los agentes en el harness previsto, no inferir disponibilidad solo del archivo.

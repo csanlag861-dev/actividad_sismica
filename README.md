@@ -46,7 +46,16 @@ Set-Location .\actividad_sismica
 code .
 ```
 
-Abre Copilot Chat en VS Code y selecciona el agente que quieras. Los agentes especializados del proyecto están en `.github/agents/`.
+Abre Copilot Chat en VS Code y selecciona el agente que quieras. Los perfiles del proyecto están en `.github/agents/`:
+
+- **Coordinador / Orchestrator Agent**: interpreta peticiones, delega trabajo y supervisa dependencias, calidad y decisiones de alcance.
+- **Analista de Requisitos (Product Manager)**: convierte necesidades y fuentes del proyecto en requisitos priorizados y criterios de aceptación.
+- **Backend** y **Frontend**: implementan los servicios de datos y el panel.
+- **QA Tester**: ejecuta pruebas y registra resultados observados y evidencia.
+- **Verificador**: compara la solicitud, el plan, los cambios y las fuentes; solo lectura.
+- **Deploy**: prepara y valida la ejecución y publicación reproducibles.
+- **Documentador**: mantiene documentación técnica y didáctica, evidencia y material para la defensa.
+- **Profesor / Mentor Agent**: hace preguntas, evalúa comprensión y refuerza conceptos para ayudar al alumno a defender y modificar el proyecto con autonomía.
 
 > **Importante:** no ejecutes `specify init` dentro de este repositorio clonado. Ya tiene Spec Kit inicializado y sus archivos se descargan con Git. `specify init` es para crear un proyecto nuevo o integrar Spec Kit en otro repositorio; puede sobrescribir archivos gestionados que tengan el mismo nombre.
 

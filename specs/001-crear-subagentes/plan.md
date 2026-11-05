@@ -6,7 +6,7 @@
 
 ## Summary
 
-Crear seis agentes personalizados de ámbito workspace para VS Code Copilot: Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy y Verificador. Cada perfil tendrá un propósito, descripción descubrible, permisos mínimos de herramientas, responsabilidades, límites y formato de salida. Sus instrucciones seguirán la constitución y las fuentes de verdad, separarán obligaciones de decisiones y propuestas opcionales, y mantendrán diferenciadas la implementación, la ejecución de pruebas y la verificación de correspondencia.
+Crear nueve agentes personalizados de ámbito workspace para VS Code Copilot: Backend, Frontend, Analista de Requisitos (Product Manager), QA Tester, Deploy, Verificador, Coordinador / Orchestrator Agent, Documentador y Profesor / Mentor Agent. Cada perfil tendrá un propósito, descripción descubrible, permisos mínimos de herramientas, responsabilidades, límites y formato de salida. Sus instrucciones seguirán la constitución y las fuentes de verdad, separarán obligaciones de decisiones y propuestas opcionales, y mantendrán diferenciadas la implementación, la ejecución de pruebas, la verificación, la coordinación, la documentación y la mentoría.
 
 ## Technical Context
 
@@ -24,9 +24,9 @@ Crear seis agentes personalizados de ámbito workspace para VS Code Copilot: Bac
 
 **Performance Goals**: No hay objetivo de rendimiento en ejecución; cada agente debe poder identificarse por una descripción breve y específica en el selector y al delegar.
 
-**Constraints**: Exactamente seis perfiles solicitados; permisos mínimos por rol; respetar la constitución y los documentos fuente; no convertir propuestas opcionales en requisitos; no exponer credenciales; distinguir evidencia observada de supuestos; no modificar el código de la aplicación como parte de esta feature.
+**Constraints**: Exactamente nueve perfiles solicitados; permisos mínimos por rol; respetar la constitución y los documentos fuente; no convertir propuestas opcionales en requisitos; no exponer credenciales; distinguir evidencia observada de supuestos; no modificar el código de la aplicación como parte de esta feature.
 
-**Scale/Scope**: Seis definiciones, una por rol, y documentación de su contrato y validación en `specs/001-crear-subagentes/`.
+**Scale/Scope**: Nueve definiciones, una por rol, y documentación de su contrato y validación en `specs/001-crear-subagentes/`.
 
 ## Constitution Check
 
@@ -67,7 +67,10 @@ specs/001-crear-subagentes/
 │   ├── analista-requisitos.agent.md
 │   ├── qa-tester.agent.md
 │   ├── deploy.agent.md
-│   └── verificador.agent.md
+│   ├── verificador.agent.md
+│   ├── coordinador.agent.md
+│   ├── documentador.agent.md
+│   └── profesor-mentor.agent.md
 └── skills/
     └── ... (existing project skills; unchanged)
 ```
@@ -76,11 +79,12 @@ specs/001-crear-subagentes/
 
 ## Design Overview
 
-- Compartir reglas de precedencia de fuentes, alcance y honestidad de evidencia en los seis perfiles; adaptar las responsabilidades al dominio de cada rol.
-- Analista de Requisitos define criterios y trazabilidad; Backend y Frontend implementan dentro de sus límites; Deploy se ocupa de la puesta en marcha y publicación; QA ejecuta o verifica pruebas; Verificador compara solicitud, plan y resultado con los entregables obligatorios fuente.
+- Compartir reglas de precedencia de fuentes, alcance y honestidad de evidencia en los nueve perfiles; adaptar las responsabilidades al dominio de cada rol.
+- Analista de Requisitos define criterios y trazabilidad; Backend y Frontend implementan dentro de sus límites; Deploy se ocupa de la puesta en marcha y publicación; QA ejecuta o verifica pruebas; Verificador compara solicitud, plan y resultado con los entregables obligatorios fuente; Coordinador / Orchestrator Agent asigna y supervisa; Documentador mantiene explicaciones y evidencia; Profesor / Mentor Agent entrena la comprensión y autonomía.
 - QA Tester y Verificador se mantienen como funciones distintas: QA aporta resultados observados de pruebas; Verificador informa cobertura, discrepancias y elementos ausentes, y declara explícitamente lo que no pudo comprobar.
-- Configurar herramientas por mínimo privilegio: roles de implementación reciben lectura, búsqueda, edición y ejecución; analista recibe lectura, búsqueda y edición; QA y Deploy reciben ejecución junto con lectura/búsqueda/edición según su tarea; Verificador recibe solo lectura y búsqueda.
+- Configurar herramientas por mínimo privilegio: roles de implementación y documentación reciben solo las herramientas necesarias; QA y Deploy reciben ejecución según su tarea; Verificador y Profesor/Mentor permanecen en modo de lectura; Coordinador dispone de delegación y lectura, pero no de permisos para realizar en nombre de otros cambios no revisados.
 - No imponer un modelo concreto, herramientas de test, automatización de informes ni infraestructura que las fuentes declaran opcionales.
+- El seguimiento de aprendizaje del Profesor/Mentor es conversacional; no se promete persistencia entre sesiones ni se escriben perfiles de aprendizaje sin autorización del alumno.
 
 ## Post-Design Constitution Check
 
@@ -90,7 +94,7 @@ specs/001-crear-subagentes/
 | II. Trazabilidad y tratamiento fiel de los datos | Los perfiles deben consultar fuentes y conservar su significado y limitaciones. | PASS |
 | III. Ingesta persistente e idempotente | Se asignan estas responsabilidades al perfil Backend y no se contradicen en los demás perfiles. | PASS |
 | IV. Análisis comparable y evidencia verificable | QA informa evidencia observada y Verificador informa cobertura; ninguno debe afirmar comprobaciones que no hizo. | PASS |
-| V. Decisiones explícitas y alcance proporcionado | Alcance de seis agentes, permisos mínimos y opciones no obligatorias están delimitados. | PASS |
+| V. Decisiones explícitas y alcance proporcionado | Alcance de nueve agentes, permisos mínimos y opciones no obligatorias están delimitados. | PASS |
 
 **Post-design gate result**: PASS. No se requieren excepciones ni seguimiento adicional de la constitución.
 

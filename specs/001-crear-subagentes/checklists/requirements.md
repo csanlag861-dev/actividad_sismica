@@ -31,4 +31,4 @@
 
 ## Notes
 
-- Revisión completada: los seis perfiles, sus límites, la trazabilidad a las fuentes y los resultados verificables quedan definidos; el Verificador contrasta solicitud, plan y resultado e identifica omisiones frente a las fuentes; no quedan marcadores de aclaración.
+- Revisión completada: los nueve perfiles, sus límites, la trazabilidad a las fuentes y los resultados verificables quedan definidos; el Coordinador / Orchestrator Agent, Documentador y Profesor / Mentor Agent tienen responsabilidades diferenciadas; no quedan marcadores de aclaración.

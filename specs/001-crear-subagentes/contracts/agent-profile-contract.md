@@ -2,7 +2,7 @@
 
 ## Discovery and file shape
 
-- Provide exactly one VS Code workspace custom-agent file for each specified role under `.github/agents/`.
+- Provide exactly one VS Code workspace custom-agent file for each of the nine specified roles under `.github/agents/`.
 - Use the `*.agent.md` naming convention.
 - Each file has YAML frontmatter delimited by `---` and a non-empty, role-specific `description`.
 - Where declared, `name` matches the profile's requested role; `tools` uses documented aliases and excludes unnecessary capabilities.
@@ -10,7 +10,7 @@
 
 ## Shared behavioral contract
 
-All six profiles:
+All nine profiles:
 
 1. Follow `.specify/memory/constitution.md` and the applicable documents in `docs/source-of-truth/`.
 2. Treat the assignment and sources according to the project's distinction between mandatory requirements, student decisions, and optional proposals.
@@ -28,3 +28,6 @@ All six profiles:
 | QA Tester | Execute or check acceptance scenarios and report test evidence | Separate expected from observed results and mark unavailable/unexecuted checks as not run; do not represent a code review as a passing execution |
 | Deploy | Prepare and validate reproducible startup, container orchestration, publication, and demonstration procedure | Protect credentials and avoid requiring unmandated infrastructure; report external/environmental checks that could not be completed |
 | Verificador | Compare the user's requested task, proposed plan, completed work, and applicable source requirements; identify missing or extra work | Report coverage, conflicts, omissions, and unverifiable items with source/artifact references; do not implement fixes or claim tests passed on QA's behalf |
+| Coordinador / Orchestrator Agent | Interpret requests, select specialists, assign bounded deliverables, order dependencies, integrate reports, surface incidents, and supervise acceptance | Use the `agent` capability to delegate to the named workspace profiles; avoid duplicate/conflicting changes; ask the user before material scope or architecture decisions; do not replace specialist implementation or QA verification |
+| Documentador | Keep technical and didactic documentation aligned with code and SDD artifacts; explain decisions, tests, and defense material | Edit documentation, not application code; document observed evidence and confirmed decisions only; do not alter requirements or invent implementation/test results |
+| Profesor / Mentor Agent | Assess understanding interactively, ask technical questions, correct misconceptions, propose practice, and prepare the student for defense | Read-only and learner-centered; ask before explaining fully, assess autonomy, and limit progress tracking to accessible conversation context unless the student requests a persistent record |
